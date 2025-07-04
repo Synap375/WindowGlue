@@ -11,6 +11,7 @@ import Cocoa
 class MenuBarIconManager: ObservableObject {
     @Published var dropIcon: NSImage
     @Published var glueActive: Bool = false
+    @Published var canUnglue: Bool = false
     
     static let shared = MenuBarIconManager()
     
@@ -58,6 +59,10 @@ class MenuBarIconManager: ObservableObject {
         
         dropIcon = menuBarIcon
         glueActive = active
+    }
+    
+    func updateCanUnglue() {
+        canUnglue = !windowGlues.isEmpty
     }
 }
 

@@ -33,6 +33,10 @@ struct MenuBarView: View {
                 glueActive = newValue
                 iconManager.setMenuBarIcon(active: newValue)
             }
+        Button("Unglue All") {
+            windowGlues = []
+            MenuBarIconManager.shared.updateCanUnglue()
+        }.disabled(!iconManager.canUnglue)
         
         Divider()
         
@@ -42,10 +46,10 @@ struct MenuBarView: View {
         
         Menu("More") {
             Button("About Window Glue") {
-                // Settings action
+                // About window
             }
             Button("My Other Apps") {
-                // Settings action
+                // TBD
             }
         }
         

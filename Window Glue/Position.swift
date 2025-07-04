@@ -105,6 +105,7 @@ func attachWindow(_ window: Swindler.Window, to staticWindow: Swindler.Window, p
     reposition(window, to: staticWindow, position: position)
     windowGlues.append((window, position, staticWindow))
     windowGlues.append((staticWindow, position.opposite(), window))
+    MenuBarIconManager.shared.updateCanUnglue()
     glueActive = false
     Window_GlueApp.setMenuBarIcon(active: false)
 }

@@ -113,18 +113,18 @@ func showOverlayRectangle(for window: Swindler.Window, position: Position, dragg
         guard windowDict[window] != nil else { return }
         _ = window.application.mainWindow.set(window)
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.12) {
             guard windowDict[window] != nil else { return }
             overlayWindow.contentView?.alphaValue = 1
             
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.12) {
                 overlayWindow.contentView?.alphaValue = 0
                 
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.12) {
                     guard windowDict[window] != nil else { return }
                     overlayWindow.contentView?.alphaValue = 1
                     
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.12) {
                         overlayWindow.orderOut(nil)
                         if windowDict[window] != nil {
                             windowDict.removeValue(forKey: window)
