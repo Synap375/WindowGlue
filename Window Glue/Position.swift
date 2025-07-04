@@ -6,6 +6,7 @@
 //
 
 import Cocoa
+import Swindler
 
 enum Position {
     case left
@@ -97,4 +98,34 @@ func compareRects(_ rect1: CGRect, _ rect2: CGRect) -> Position {
         return .bottom
     }
     return .none
+}
+
+func attachWindow(_ window: Swindler.Window, to staticWindow: Swindler.Window, position: Position) {
+    print(position)
+    reposition(window, to: staticWindow, position: position)
+    windowGlues.append((window, position, staticWindow))
+    windowGlues.append((staticWindow, position.opposite(), window))
+    glueActive = false
+    Window_GlueApp.setMenuBarIcon(active: false)
+}
+
+func reposition(_ window: Swindler.Window, to staticWindow: Swindler.Window, position: Position) {
+    let newRect: CGRect
+    switch position {
+    case .top:
+        newRect = CGRect(x: staticWindow.frame.value.minX, y: staticWindow.frame.value.maxY,
+                             width: staticWindow.frame.value.width, height: window.frame.value.height)
+    case .bottom:
+        newRect = CGRect(x: staticWindow.frame.value.minX, y: staticWindow.frame.value.minY -  window.frame.value.height,
+                             width: staticWindow.frame.value.width, height: window.frame.value.height)
+    case .left:
+        newRect = CGRect(x: staticWindow.frame.value.minX - window.frame.value.width, y: staticWindow.frame.value.minY,
+                             width: window.frame.value.width, height: staticWindow.frame.value.height)
+    case .right:
+        newRect = CGRect(x: staticWindow.frame.value.maxX, y: staticWindow.frame.value.minY,
+                             width: window.frame.value.width, height: staticWindow.frame.value.height)
+    default:
+        return
+    }
+    _ = window.frame.set(newRect)
 }

@@ -23,41 +23,37 @@ struct ContentView: View {
 }
 
 struct MenuBarView: View {
-    @State private var glueWindowsEnabled: Bool = false
+    @ObservedObject private var iconManager = MenuBarIconManager.shared
     
     var body: some View {
-            Toggle("Glue Windows", isOn: $glueWindowsEnabled)
-                .padding(.horizontal, 12)
-                .padding(.vertical, 8)
-                .onChange(of: glueWindowsEnabled) { newValue in
-                    glueActive = newValue
-                    Window_GlueApp.setMenuBarIcon(active: newValue)
-                }
-            
-            Divider()
-            
-            Button("About Window Glue") {
-//                makeGrid()
-            }
-            .buttonStyle(.plain)
+        Toggle("Add Glue", isOn: $iconManager.glueActive)
             .padding(.horizontal, 12)
             .padding(.vertical, 8)
-            
-            Button("Settings...") {
+            .onChange(of: iconManager.glueActive) { newValue in
+                glueActive = newValue
+                iconManager.setMenuBarIcon(active: newValue)
+            }
+        
+        Divider()
+        
+        Button("Settings...") {
+            // Settings action
+        }
+        
+        Menu("More") {
+            Button("About Window Glue") {
                 // Settings action
             }
-            .buttonStyle(.plain)
-            .padding(.horizontal, 12)
-            .padding(.vertical, 8)
-            
-            Divider()
-            
-            Button("Quit Window Glue") {
-                NSApplication.shared.terminate(nil)
+            Button("My Other Apps") {
+                // Settings action
             }
-            .buttonStyle(.plain)
-            .padding(.horizontal, 12)
-            .padding(.vertical, 8)
+        }
+        
+        Divider()
+        
+        Button("Quit Window Glue") {
+            NSApplication.shared.terminate(nil)
+        }
     }
 }
 

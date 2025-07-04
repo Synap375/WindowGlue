@@ -110,14 +110,18 @@ func showOverlayRectangle(for window: Swindler.Window, position: Position, dragg
     
     DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
         overlayWindow.contentView?.alphaValue = 0
+        guard windowDict[window] != nil else { return }
+        _ = window.application.mainWindow.set(window)
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            guard windowDict[window] != nil else { return }
             overlayWindow.contentView?.alphaValue = 1
             
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                 overlayWindow.contentView?.alphaValue = 0
                 
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                    guard windowDict[window] != nil else { return }
                     overlayWindow.contentView?.alphaValue = 1
                     
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
@@ -132,35 +136,4 @@ func showOverlayRectangle(for window: Swindler.Window, position: Position, dragg
         }
     }
     return true
-}
-
-func attachWindow(_ window: Swindler.Window, to staticWindow: Swindler.Window, position: Position) {
-    print(position)
-    _ = window.application.mainWindow.set(window)
-    reposition(window, to: staticWindow, position: position)
-    windowGlues.append((window, position, staticWindow))
-    windowGlues.append((staticWindow, position.opposite(), window))
-    glueActive = false
-    Window_GlueApp.setMenuBarIcon(active: false)
-}
-
-func reposition(_ window: Swindler.Window, to staticWindow: Swindler.Window, position: Position) {
-    let newRect: CGRect
-    switch position {
-    case .top:
-        newRect = CGRect(x: staticWindow.frame.value.minX, y: staticWindow.frame.value.maxY,
-                             width: staticWindow.frame.value.width, height: window.frame.value.height)
-    case .bottom:
-        newRect = CGRect(x: staticWindow.frame.value.minX, y: staticWindow.frame.value.minY -  window.frame.value.height,
-                             width: staticWindow.frame.value.width, height: window.frame.value.height)
-    case .left:
-        newRect = CGRect(x: staticWindow.frame.value.minX - window.frame.value.width, y: staticWindow.frame.value.minY,
-                             width: window.frame.value.width, height: staticWindow.frame.value.height)
-    case .right:
-        newRect = CGRect(x: staticWindow.frame.value.maxX, y: staticWindow.frame.value.minY,
-                             width: window.frame.value.width, height: staticWindow.frame.value.height)
-    default:
-        return
-    }
-    _ = window.frame.set(newRect)
 }

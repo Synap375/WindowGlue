@@ -10,6 +10,7 @@ import Cocoa
 
 class MenuBarIconManager: ObservableObject {
     @Published var dropIcon: NSImage
+    @Published var glueActive: Bool = false
     
     static let shared = MenuBarIconManager()
     
@@ -56,6 +57,7 @@ class MenuBarIconManager: ObservableObject {
         menuBarIcon.isTemplate = true
         
         dropIcon = menuBarIcon
+        glueActive = active
     }
 }
 
