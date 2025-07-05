@@ -8,6 +8,8 @@
 import Cocoa
 import AXSwift
 import Swindler
+import KeyboardShortcuts
+import SwiftUI
 
 struct WindowMovement {
     let position: CGPoint
@@ -17,7 +19,9 @@ struct WindowMovement {
 var swindlerState: Swindler.State? = nil
 
 class AppDelegate: NSObject, NSApplicationDelegate {
+    @ObservedObject private var iconManager = MenuBarIconManager.shared
     private var windowMovements: [Swindler.Window: [WindowMovement]] = [:]
+    
     func applicationDidFinishLaunching(_ notification: Notification) {
 //        checkAccessibilityPermissions()
         
@@ -30,6 +34,20 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             showAccessibilityAlert()
             return
         }
+        
+        KeyboardShortcuts.onKeyUp(for: .unglue) { [self] in
+            print("unglue")
+            guard swindlerState != nil else { return }
+            guard let w = swindlerState!.frontmostApplication.value?.mainWindow.value else { return }
+            windowGlues.removeAll(where: { $0.0 == w || $0.2 == w })
+            MenuBarIconManager.shared.updateCanUnglue()
+        }
+        KeyboardShortcuts.onKeyUp(for: .toggleGlue) { [self] in
+            print("toggleGlue")
+            glueActive.toggle()
+            iconManager.setMenuBarIcon(active: glueActive)
+        }
+        
         Swindler.initialize().done { state/* -> Promise<Void>*/ in
             swindlerState = state
             state.on { (event: WindowFrameChangedEvent) in

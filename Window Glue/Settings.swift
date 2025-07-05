@@ -7,6 +7,7 @@
 
 import SwiftUI
 import ServiceManagement
+import KeyboardShortcuts
 
 struct Settings {
     @AppStorage("tolerance") var tolerance: Int = 24
@@ -24,15 +25,18 @@ struct SettingsWindow: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
-            VStack(alignment: .leading, spacing: 8) {
-                Text("General")
-                    .font(.headline)
+            Text("General")
+                .font(.headline)
+            Form {
                 Toggle("Launch at startup", isOn: $launchAtStartup)
                     .onChange(of: launchAtStartup) { newValue in
                         setLaunchAtStartup(enabled: newValue)
                     }
+                KeyboardShortcuts.Recorder("Add Glue:", name: .toggleGlue)
+                KeyboardShortcuts.Recorder("Unglue active window:", name: .unglue)
                 Toggle("Shake to unglue", isOn: $localSettings.shakeToUnglueEnabled)
             }
+            .frame(maxWidth: .infinity)
             
             Spacer()
             
@@ -44,8 +48,8 @@ struct SettingsWindow: View {
                 .buttonStyle(.borderedProminent)
             }
         }
+        .frame(width: 350, height: 200)
         .padding()
-        .frame(width: 300, height: 200)
         .onAppear {
             launchAtStartup = isLaunchAtStartupEnabled()
             NSApp.activate(ignoringOtherApps: true)

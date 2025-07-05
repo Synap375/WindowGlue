@@ -7,6 +7,12 @@
 
 import SwiftUI
 import Cocoa
+import KeyboardShortcuts
+
+extension KeyboardShortcuts.Name {
+    static let toggleGlue = Self("toggleGlue", default: .init(.f9, modifiers: []))
+    static let unglue = Self("unglue", default: .init(.f9, modifiers: [.shift]))
+}
 
 class MenuBarIconManager: ObservableObject {
     @Published var dropIcon: NSImage
