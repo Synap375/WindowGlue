@@ -62,12 +62,16 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 if glueActive {
                     for w in state.knownWindows {
                         if w != event.window {
-                            _ = showOverlayRectangle(for: w, position: compareRects(w.frame.value, event.window.frame.value), draggedWindow: event.window)
+                            _ = showOverlayRectangle(for: w, position: gluePosition(w.frame.value, event.window.frame.value), draggedWindow: event.window)
                         }
                     }
                 }
                 for pair in windowGlues.filter({ $0.2 == event.window }) {
-                    reposition(pair.0, to: pair.2, position: pair.1)
+                    if oneSideChanged(event.newValue, event.oldValue) == pair.1 {
+                        repositionSplit(pair.0, to: pair.2, position: pair.1)
+                    } else {
+                        reposition(pair.0, to: pair.2, position: pair.1)
+                    }
                 }
             }
         }.catch { e in
