@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		4D0C0DF12E16836B0090F5AE /* Swindler in Frameworks */ = {isa = PBXBuildFile; productRef = 4D0C0DF02E16836B0090F5AE /* Swindler */; };
+		4D479E2B2E180B6500BE9B73 /* KeyboardShortcuts in Frameworks */ = {isa = PBXBuildFile; productRef = 4D479E2A2E180B6500BE9B73 /* KeyboardShortcuts */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4D0C0DF12E16836B0090F5AE /* Swindler in Frameworks */,
+				4D479E2B2E180B6500BE9B73 /* KeyboardShortcuts in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -71,6 +73,7 @@
 			name = "Window Glue";
 			packageProductDependencies = (
 				4D0C0DF02E16836B0090F5AE /* Swindler */,
+				4D479E2A2E180B6500BE9B73 /* KeyboardShortcuts */,
 			);
 			productName = "Window Glue";
 			productReference = 4D0C0DE02E16826F0090F5AE /* Window Glue.app */;
@@ -102,6 +105,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				4D0C0DEF2E16836B0090F5AE /* XCRemoteSwiftPackageReference "Swindler" */,
+				4D479E292E180B6500BE9B73 /* XCRemoteSwiftPackageReference "KeyboardShortcuts" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 4D0C0DE12E16826F0090F5AE /* Products */;
@@ -348,6 +352,14 @@
 				kind = branch;
 			};
 		};
+		4D479E292E180B6500BE9B73 /* XCRemoteSwiftPackageReference "KeyboardShortcuts" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sindresorhus/KeyboardShortcuts.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.3.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -355,6 +367,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 4D0C0DEF2E16836B0090F5AE /* XCRemoteSwiftPackageReference "Swindler" */;
 			productName = Swindler;
+		};
+		4D479E2A2E180B6500BE9B73 /* KeyboardShortcuts */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4D479E292E180B6500BE9B73 /* XCRemoteSwiftPackageReference "KeyboardShortcuts" */;
+			productName = KeyboardShortcuts;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

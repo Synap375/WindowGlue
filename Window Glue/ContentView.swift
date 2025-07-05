@@ -6,9 +6,8 @@
 //
 
 import SwiftUI
-//import Swindler
-//import PromiseKit
 import Cocoa
+import Swindler
 
 struct ContentView: View {
     var body: some View {
@@ -24,39 +23,64 @@ struct ContentView: View {
 
 struct MenuBarView: View {
     @ObservedObject private var iconManager = MenuBarIconManager.shared
+    @Environment(\.openWindow) private var openWindow
     
     var body: some View {
-        Toggle("Add Glue", isOn: $iconManager.glueActive)
-            .padding(.horizontal, 12)
-            .padding(.vertical, 8)
-            .onChange(of: iconManager.glueActive) { newValue in
-                glueActive = newValue
-                iconManager.setMenuBarIcon(active: newValue)
+        VStack(alignment: .leading, spacing: 0) {
+            Toggle("Add Glue", isOn: $iconManager.glueActive)
+                .padding(.horizontal, 12)
+                .padding(.vertical, 8)
+                .onChange(of: iconManager.glueActive) { newValue in
+                    glueActive = newValue
+                    iconManager.setMenuBarIcon(active: newValue)
+                }
+            Button("Unglue Active Window") {
+                guard swindlerState != nil else { return }
+                guard let w = swindlerState!.frontmostApplication.value?.mainWindow.value else { return }
+                windowGlues.removeAll(where: { $0.0 == w || $0.2 == w })
+                MenuBarIconManager.shared.updateCanUnglue()
             }
-        Button("Unglue All") {
-            windowGlues = []
-            MenuBarIconManager.shared.updateCanUnglue()
-        }.disabled(!iconManager.canUnglue)
-        
-        Divider()
-        
-        Button("Settings...") {
-            // Settings action
+            .disabled(!iconManager.canUnglue)
+            Button("Unglue All") {
+                windowGlues = []
+                MenuBarIconManager.shared.updateCanUnglue()
+            }
+            .disabled(!iconManager.canUnglue)
+            
+            Divider()
+            
+            Button("Settings...") {
+                openWindow(id: "settings")
+            }
+            
+            Menu("More") {
+                Button("About Window Glue") {
+                    // About window
+                }
+                Button("My Other Apps") {
+                    // TBD
+                }
+                
+                #if DEBUG
+                Divider()
+                Button("Reset Onboarding & Quit") {
+                    settings.hasCompletedOnboarding = false
+                    NSApplication.shared.terminate(nil)
+                }
+                #endif
+            }
+            
+            Divider()
+            
+            Button("Quit Window Glue") {
+                NSApplication.shared.terminate(nil)
+            }
         }
-        
-        Menu("More") {
-            Button("About Window Glue") {
-                // About window
+        .onReceive(iconManager.$shouldShowOnboarding) { shouldShow in
+            if shouldShow {
+                openWindow(id: "onboarding")
+                iconManager.shouldShowOnboarding = false
             }
-            Button("My Other Apps") {
-                // TBD
-            }
-        }
-        
-        Divider()
-        
-        Button("Quit Window Glue") {
-            NSApplication.shared.terminate(nil)
         }
     }
 }

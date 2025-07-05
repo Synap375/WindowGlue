@@ -12,6 +12,8 @@ class MenuBarIconManager: ObservableObject {
     @Published var dropIcon: NSImage
     @Published var glueActive: Bool = false
     @Published var canUnglue: Bool = false
+    @Published var showingSettings: Bool = false
+    @Published var shouldShowOnboarding: Bool = false
     
     static let shared = MenuBarIconManager()
     
@@ -64,12 +66,27 @@ class MenuBarIconManager: ObservableObject {
     func updateCanUnglue() {
         canUnglue = !windowGlues.isEmpty
     }
+    
+    func showSettings() {
+        showingSettings = true
+    }
+    
+    func checkOnboarding() {
+        shouldShowOnboarding = !settings.hasCompletedOnboarding
+    }
 }
 
 @main
 struct Window_GlueApp: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     @ObservedObject private var iconManager = MenuBarIconManager.shared
+    
+    init() {
+        // Check onboarding status on app launch
+        DispatchQueue.main.async {
+            MenuBarIconManager.shared.checkOnboarding()
+        }
+    }
     
     static func setMenuBarIcon(active: Bool) {
         MenuBarIconManager.shared.setMenuBarIcon(active: active)
@@ -81,5 +98,20 @@ struct Window_GlueApp: App {
         } label: {
             Image(nsImage: iconManager.dropIcon)
         }
+        
+        Window("Window Glue Settings", id: "settings") {
+            SettingsWindow()
+        }
+        .windowStyle(.titleBar)
+        .windowResizability(.contentSize)
+        .defaultSize(width: 300, height: 200)
+        .windowToolbarStyle(.unifiedCompact)
+        
+        Window("Welcome to Window Glue", id: "onboarding") {
+            OnboardingWindow()
+        }
+        .windowStyle(.hiddenTitleBar)
+        .windowResizability(.contentSize)
+        .defaultSize(width: 500, height: 400)
     }
 }
