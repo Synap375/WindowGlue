@@ -9,22 +9,22 @@ import Cocoa
 import Swindler
 
 extension CGRect {
-    func setMinX(_ newMinX: CGFloat) -> CGRect {
+    func withMinX(_ newMinX: CGFloat) -> CGRect {
         let diff = newMinX - self.minX
         return CGRect(origin: CGPoint(x: newMinX, y: self.minY), size: CGSize(width: self.width - diff, height: self.height))
     }
     
-    func setMaxX(_ newMaxX: CGFloat) -> CGRect {
+    func withMaxX(_ newMaxX: CGFloat) -> CGRect {
         let diff = newMaxX - self.maxX
         return CGRect(origin: CGPoint(x: self.minX, y: self.minY), size: CGSize(width: self.width + diff, height: self.height))
     }
     
-    func setMinY(_ newMinY: CGFloat) -> CGRect {
+    func withMinY(_ newMinY: CGFloat) -> CGRect {
         let diff = newMinY - self.minY
         return CGRect(origin: CGPoint(x: self.minX, y: newMinY), size: CGSize(width: self.width, height: self.height - diff))
     }
     
-    func setMaxY(_ newMaxY: CGFloat) -> CGRect {
+    func withMaxY(_ newMaxY: CGFloat) -> CGRect {
         let diff = newMaxY - self.maxY
         return CGRect(origin: CGPoint(x: self.minX, y: self.minY), size: CGSize(width: self.width, height: self.height + diff))
     }
@@ -175,13 +175,13 @@ func repositionSplit(_ window: Swindler.Window, to staticWindow: Swindler.Window
     let newRect: CGRect
     switch position {
     case .top:
-        newRect = window.frame.value.setMinY(staticWindow.frame.value.maxY)
+        newRect = window.frame.value.withMinY(staticWindow.frame.value.maxY)
     case .bottom:
-        newRect = window.frame.value.setMaxY(staticWindow.frame.value.minY)
+        newRect = window.frame.value.withMaxY(staticWindow.frame.value.minY)
     case .left:
-        newRect = window.frame.value.setMaxX(staticWindow.frame.value.minX)
+        newRect = window.frame.value.withMaxX(staticWindow.frame.value.minX)
     case .right:
-        newRect = window.frame.value.setMinX(staticWindow.frame.value.maxX)
+        newRect = window.frame.value.withMinX(staticWindow.frame.value.maxX)
     default:
         return
     }

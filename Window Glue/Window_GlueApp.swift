@@ -76,10 +76,75 @@ class MenuBarIconManager: ObservableObject {
     }
 }
 
+struct MenuBarContentView: View {
+    @ObservedObject private var iconManager = MenuBarIconManager.shared
+    @Environment(\.openWindow) private var openWindow
+    
+    var body: some View {
+        VStack(alignment: .leading, spacing: 0) {
+            Toggle("Add Glue", isOn: $iconManager.glueActive)
+                .padding(.horizontal, 12)
+                .padding(.vertical, 8)
+                .onChange(of: iconManager.glueActive) { newValue in
+                    glueActive = newValue
+                    iconManager.setMenuBarIcon(active: newValue)
+                }
+            Button("Unglue Active Window") {
+                guard swindlerState != nil else { return }
+                guard let w = swindlerState!.frontmostApplication.value?.mainWindow.value else { return }
+                windowGlues.removeAll(where: { $0.0 == w || $0.2 == w })
+                MenuBarIconManager.shared.updateCanUnglue()
+            }
+            .disabled(!iconManager.canUnglue)
+            Button("Unglue All") {
+                windowGlues = []
+                MenuBarIconManager.shared.updateCanUnglue()
+            }
+            .disabled(!iconManager.canUnglue)
+            
+            Divider()
+            
+            Button("Settings...") {
+                iconManager.showSettings()
+            }
+            
+            Menu("More") {
+                Button("About Window Glue") {
+                    // About window
+                }
+                Button("My Other Apps") {
+                    // TBD
+                }
+                
+                #if DEBUG
+                Divider()
+                Button("Reset Onboarding & Quit") {
+                    settings.hasCompletedOnboarding = false
+                    NSApplication.shared.terminate(nil)
+                }
+                #endif
+            }
+            
+            Divider()
+            
+            Button("Quit Window Glue") {
+                NSApplication.shared.terminate(nil)
+            }
+        }
+        .onReceive(iconManager.$shouldShowOnboarding) { shouldShow in
+            if shouldShow {
+                openWindow(id: "onboarding")
+                iconManager.shouldShowOnboarding = false
+            }
+        }
+    }
+}
+
 @main
 struct Window_GlueApp: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     @ObservedObject private var iconManager = MenuBarIconManager.shared
+    @Environment(\.openWindow) private var openWindow
     
     init() {
         // Check onboarding status on app launch
@@ -93,10 +158,22 @@ struct Window_GlueApp: App {
     }
     
     var body: some Scene {
-        MenuBarExtra{
-            MenuBarView()
+        MenuBarExtra {
+            MenuBarContentView()
         } label: {
             Image(nsImage: iconManager.dropIcon)
+        }
+        .onChange(of: iconManager.showingSettings) { showSettings in
+            if showSettings {
+                openWindow(id: "settings")
+                iconManager.showingSettings = false
+            }
+        }
+        .onChange(of: iconManager.shouldShowOnboarding) { shouldShow in
+            if shouldShow {
+                openWindow(id: "onboarding")
+                iconManager.shouldShowOnboarding = false
+            }
         }
         
         Window("Window Glue Settings", id: "settings") {
