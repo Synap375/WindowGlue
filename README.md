@@ -48,7 +48,7 @@ Shortcuts can be customized in Settings.
 
 ## Requirements
 
-- macOS 13.0 (Sonoma) or later
+- macOS 13.0 (Ventura) or later
 - Accessibility permissions (granted on first launch)
 
 ## Privacy
