@@ -2,7 +2,7 @@
 
 A simple macOS menu bar utility that lets you glue two windows together so that they behave (mostly) as one.
 
-![Window Glue Demo](assets/demo.gif)
+![Window Glue Icon](assets/Icon-MacOS-256x256.png)
 
 ### Currently Supported Languages
 - English (en)

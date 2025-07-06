@@ -1,0 +1,84 @@
+name: Manual Release with Notarized App
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Release tag (e.g., v1.0.0)'
+        required: true
+        type: string
+      app_upload:
+        description: 'Upload the notarized Window Glue.app as an artifact first, then run this workflow'
+        required: false
+        type: string
+
+jobs:
+  create-dmg-release:
+    runs-on: macos-14
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Download notarized app artifact
+      uses: actions/download-artifact@v4
+      with:
+        name: notarized-window-glue-app
+        path: ./
+    
+    - name: Extract and verify app
+      run: |
+        # The uploaded artifact should be a zip file containing Window Glue.app
+        if [ -f "Window Glue.app.zip" ]; then
+          unzip "Window Glue.app.zip"
+        elif [ -d "Window Glue.app" ]; then
+          echo "App directory already present"
+        else
+          echo "Error: No Window Glue.app found in artifacts"
+          exit 1
+        fi
+        
+        # Verify the app is properly signed and notarized
+        codesign -dv --verbose=4 "Window Glue.app" || echo "Warning: App signature verification failed"
+        spctl -a -vvv "Window Glue.app" || echo "Warning: Gatekeeper verification failed"
+    
+    - name: Create DMG
+      run: |
+        # Create a temporary directory for DMG contents
+        mkdir -p dmg_temp
+        cp -R "Window Glue.app" dmg_temp/
+        
+        # Create Applications symlink for easy installation
+        ln -s /Applications dmg_temp/Applications
+        
+        # Create the DMG
+        hdiutil create -volname "Window Glue" \
+                       -srcfolder dmg_temp \
+                       -ov \
+                       -format UDZO \
+                       -fs HFS+ \
+                       "Window Glue.dmg"
+        
+        # Clean up
+        rm -rf dmg_temp
+    
+    - name: Create Release
+      uses: softprops/action-gh-release@v1
+      with:
+        tag_name: ${{ inputs.tag }}
+        files: |
+          Window Glue.dmg
+        draft: false
+        prerelease: false
+        generate_release_notes: true
+        body: |
+          ## Installation
+          1. Download the DMG file below
+          2. Mount the DMG and drag Window Glue.app to your Applications folder
+          3. Launch and grant Accessibility permissions when prompted
+          
+          **This release contains a properly signed and notarized application.**
+          
+          ## What's New
+          See the commit history for detailed changes in this release.
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

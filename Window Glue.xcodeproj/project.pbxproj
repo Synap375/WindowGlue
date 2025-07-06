@@ -12,7 +12,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		4D0C0DE02E16826F0090F5AE /* Window Glue.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Window Glue.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4D0C0DE02E16826F0090F5AE /* Window Glue.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = "Window Glue.app"; path = "/Users/conxt/Library/Mobile Documents/com~apple~CloudDocs/XCode/Window Glue/build/Debug/Window Glue.app"; sourceTree = "<absolute>"; };
 		4D479E342E1A971000BE9B73 /* CHANGELOG.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = "<group>"; };
 		4D479E352E1A971000BE9B73 /* CONTRIBUTING.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CONTRIBUTING.md; sourceTree = "<group>"; };
 		4D479E362E1A971000BE9B73 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
@@ -24,6 +24,11 @@
 		4D0C0DE22E16826F0090F5AE /* Window Glue */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = "Window Glue";
+			sourceTree = "<group>";
+		};
+		4D8AA28A2E1B0D6500546A48 /* Assets */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Assets;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -44,22 +49,14 @@
 		4D0C0DD72E16826F0090F5AE = {
 			isa = PBXGroup;
 			children = (
+				4D8AA28A2E1B0D6500546A48 /* Assets */,
 				4D0C0DE22E16826F0090F5AE /* Window Glue */,
-				4D0C0DE12E16826F0090F5AE /* Products */,
 				4D479E342E1A971000BE9B73 /* CHANGELOG.md */,
 				4D479E352E1A971000BE9B73 /* CONTRIBUTING.md */,
 				4D479E362E1A971000BE9B73 /* LICENSE */,
 				4D479E372E1A971000BE9B73 /* PRIVACY.md */,
 				4D479E382E1A971000BE9B73 /* README.md */,
 			);
-			sourceTree = "<group>";
-		};
-		4D0C0DE12E16826F0090F5AE /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				4D0C0DE02E16826F0090F5AE /* Window Glue.app */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -129,7 +126,7 @@
 				4D479E312E19959900BE9B73 /* XCRemoteSwiftPackageReference "Swindler" */,
 			);
 			preferredProjectObjectVersion = 77;
-			productRefGroup = 4D0C0DE12E16826F0090F5AE /* Products */;
+			productRefGroup = 4D0C0DD72E16826F0090F5AE;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
