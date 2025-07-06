@@ -19,7 +19,7 @@ class MenuBarIconManager: ObservableObject {
     @Published var glueActive: Bool = false
     @Published var canUnglue: Bool = false
     @Published var showingSettings: Bool = false
-    @Published var shouldShowOnboarding: Bool = false
+    @Published var showingAbout: Bool = false
     
     static let shared = MenuBarIconManager()
     
@@ -77,8 +77,8 @@ class MenuBarIconManager: ObservableObject {
         showingSettings = true
     }
     
-    func checkOnboarding() {
-        shouldShowOnboarding = !settings.hasCompletedOnboarding
+    func showAbout() {
+        showingAbout = true
     }
 }
 
@@ -114,31 +114,18 @@ struct MenuBarContentView: View {
                 iconManager.showSettings()
             }
             Button("About Window Glue") {
-                // About window
+                iconManager.showAbout()
             }
             
             Menu("My Other Apps") {
                 Button("Folders File Manager") {
-                    NSWorkspace.shared.open(URL(string: "https://foldersapp.dev")!)
+                    NSWorkspace.shared.open(URL(string: "https://foldersapp.dev/?ref=wg")!)
                 }
             }
-#if DEBUG
-            Divider()
-            Button("Reset Onboarding & Quit") {
-                settings.hasCompletedOnboarding = false
-                NSApplication.shared.terminate(nil)
-            }
-#endif
             Divider()
             
             Button("Quit Window Glue") {
                 NSApplication.shared.terminate(nil)
-            }
-        }
-        .onReceive(iconManager.$shouldShowOnboarding) { shouldShow in
-            if shouldShow {
-                openWindow(id: "onboarding")
-                iconManager.shouldShowOnboarding = false
             }
         }
     }
@@ -149,13 +136,6 @@ struct Window_GlueApp: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     @ObservedObject private var iconManager = MenuBarIconManager.shared
     @Environment(\.openWindow) private var openWindow
-    
-    init() {
-        // Check onboarding status on app launch
-        DispatchQueue.main.async {
-            MenuBarIconManager.shared.checkOnboarding()
-        }
-    }
     
     static func setMenuBarIcon(active: Bool) {
         MenuBarIconManager.shared.setMenuBarIcon(active: active)
@@ -173,14 +153,14 @@ struct Window_GlueApp: App {
                 iconManager.showingSettings = false
             }
         }
-        .onChange(of: iconManager.shouldShowOnboarding) { shouldShow in
-            if shouldShow {
-                openWindow(id: "onboarding")
-                iconManager.shouldShowOnboarding = false
+        .onChange(of: iconManager.showingAbout) { showAbout in
+            if showAbout {
+                openWindow(id: "about")
+                iconManager.showingAbout = false
             }
         }
         
-        Window("Window Glue Settings", id: "settings") {
+        Window(String(localized: "Window Glue Settings"), id: "settings") {
             SettingsWindow()
         }
         .windowStyle(.titleBar)
@@ -188,11 +168,11 @@ struct Window_GlueApp: App {
         .defaultSize(width: 350, height: 230)
         .windowToolbarStyle(.unifiedCompact)
         
-        Window("Welcome to Window Glue", id: "onboarding") {
-            OnboardingWindow()
+        Window(String(localized: "About Window Glue"), id: "about") {
+            AboutWindow()
         }
         .windowStyle(.hiddenTitleBar)
         .windowResizability(.contentSize)
-        .defaultSize(width: 500, height: 400)
+        .defaultSize(width: 320, height: 280)
     }
 }

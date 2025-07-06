@@ -23,27 +23,18 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     private var windowMovements: [Swindler.Window: [WindowMovement]] = [:]
     
     func applicationDidFinishLaunching(_ notification: Notification) {
-//        checkAccessibilityPermissions()
-        
-        // Show onboarding if first launch
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            MenuBarIconManager.shared.checkOnboarding()
-        }
-        
         guard AXSwift.checkIsProcessTrusted(prompt: true) else {
             showAccessibilityAlert()
             return
         }
         
-        KeyboardShortcuts.onKeyUp(for: .unglue) { [self] in
-            print("unglue")
+        KeyboardShortcuts.onKeyUp(for: .unglue) {
             guard swindlerState != nil else { return }
             guard let w = swindlerState!.frontmostApplication.value?.mainWindow.value else { return }
             windowGlues.removeAll(where: { $0.0 == w || $0.2 == w })
             MenuBarIconManager.shared.updateCanUnglue()
         }
         KeyboardShortcuts.onKeyUp(for: .toggleGlue) { [self] in
-            print("toggleGlue")
             glueActive.toggle()
             iconManager.setMenuBarIcon(active: glueActive)
         }
@@ -77,10 +68,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                     self.windowMovements[event.window] = []
                 }
                 
-                if glueActive {
+                if glueActive && windowGlues.filter({ $0.0 == event.window || $0.2 == event.window }).count == 0 {
                     for w in state.knownWindows {
                         if w != event.window {
-                            _ = showOverlayRectangle(for: w, position: gluePosition(w.frame.value, event.window.frame.value), draggedWindow: event.window)
+                            if windowGlues.filter({ $0.0 == w || $0.2 == w }).count > 0 {
+                                continue
+                            }
+                            if showOverlayRectangle(for: w, position: gluePosition(w.frame.value, event.window.frame.value), draggedWindow: event.window) {
+                                break
+                            }
                         }
                     }
                 }
@@ -190,24 +186,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         return directionChanges >= 3
     }
     
-//    private func checkAccessibilityPermissions() {
-//        let options = [kAXTrustedCheckOptionPrompt.takeUnretainedValue() as String: true]
-//        let accessibilityEnabled = AXIsProcessTrustedWithOptions(options as CFDictionary)
-//        
-//        if !accessibilityEnabled {
-//            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-//                self.showAccessibilityAlert()
-//            }
-//        }
-//    }
-//    
     private func showAccessibilityAlert() {
         let alert = NSAlert()
-        alert.messageText = "Accessibility Permission Required"
-        alert.informativeText = "Window Glue needs accessibility permissions to manage windows. Please enable it in System Settings > Privacy & Security > Accessibility."
+        alert.messageText = String(localized: "Accessibility Permission Required")
+        alert.informativeText = String(localized: "Window Glue needs accessibility permissions to manage windows. Please enable it in System Settings > Privacy & Security > Accessibility.")
         alert.alertStyle = .warning
-        alert.addButton(withTitle: "Open System Settings")
-        alert.addButton(withTitle: "Cancel")
+        alert.addButton(withTitle: String(localized: "Open System Settings"))
+        alert.addButton(withTitle: String(localized: "Cancel"))
         
         let response = alert.runModal()
         if response == .alertFirstButtonReturn {

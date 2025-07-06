@@ -1,29 +1,23 @@
 # Window Glue
 
-A simple macOS menu bar utility that lets you glue windows together so that they behave (mostly) as one.
+A simple macOS menu bar utility that lets you glue two windows together so that they behave (mostly) as one.
 
 ![Window Glue Demo](assets/demo.gif)
 
-## Features
-
-- **Intuitive Window Snapping**: Drag any window near another to see glow indicators and snap them together
-- **Smart Positioning**: Windows automatically align to edges with configurable tolerance
-- **Shake to Unglue**: Quickly shake any window to disconnect it
-- **Keyboard Shortcuts**: Customizable hotkeys for toggling glue mode and unglueing windows
-- **Menu Bar Integration**: Easy access to all features from the menu bar
-- **Launch at Startup**: Optional auto-launch with system startup
-
-## Installation
-
-### Download Release
-1. Download the latest release from [Releases](https://github.com/Conxt/window-glue/releases)
-2. Mount and drag Window Glue.app to your Applications folder
-3. Launch and grant Accessibility permissions when prompted
-
-### Build from Source
-1. Clone this repository
-2. Open `Window Glue.xcodeproj` in Xcode 15+
-3. Build and run (requires macOS 13.0+)
+### Currently Supported Languages
+- English (en)
+- Dutch (nl)
+- French (fr)
+- German (de)
+- Italian (it)
+- Japanese (ja)
+- Norwegian Bokmål (nb)
+- Polish (pl)
+- Portuguese Brazil (pt-BR)
+- Portuguese Portugal (pt-PT)
+- Spanish (es)
+- Swedish (sv)
+- Ukrainian (uk)
 
 ## Usage
 
@@ -39,6 +33,18 @@ A simple macOS menu bar utility that lets you glue windows together so that they
 - **Shift+F9**: Unglue active window
 
 Shortcuts can be customized in Settings.
+
+## Installation
+
+### Download Release
+1. Download the latest release from [Releases](https://github.com/Conxt/WindowGlue/releases)
+2. Mount the DMG and drag Window Glue.app to your Applications folder
+3. Launch and grant Accessibility permissions when prompted
+
+### Build from Source
+1. Clone this repository
+2. Open `Window Glue.xcodeproj` in Xcode 15+
+3. Build and run (requires macOS 13.0+)
 
 ## Requirements
 
@@ -57,6 +63,7 @@ Window Glue requires Accessibility permissions to monitor and manage window posi
 ## Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request (and list yourself as a contributor in Credits).
+Also, if you notice a translation mistake, [please open an Issue](https://github.com/Conxt/WindowGlue/issues)
 
 ## License
 
@@ -68,5 +75,5 @@ Created by [Andriy Konstantynov](https://github.com/Conxt) in Ukraine 🇺🇦
 
 ## Support
 
-- [Report Issues](https://github.com/Conxt/window-glue/issues)
-- [Feature Requests](https://github.com/Conxt/window-glue/discussions)
+- [Report Issues](https://github.com/Conxt/WindowGlue/issues)
+- [Feature Requests](https://github.com/Conxt/WindowGlue/discussions)

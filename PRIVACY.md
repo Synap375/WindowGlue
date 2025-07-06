@@ -48,18 +48,18 @@ Window Glue does not share any data with third parties. No information is transm
 
 You have full control over your data:
 - Disable Accessibility permissions in System Preferences to stop window monitoring
-- Reset app settings through the debug menu (in development builds)
 - Uninstall the app to remove all stored data
 
 ## Security
 
+- App notarized by Apple
 - All data remains on your local device
 - No network connections are made
 - Standard macOS security protections apply
 
 ## Contact
 
-If you have questions about this privacy policy, please open an issue on our [GitHub repository](https://github.com/Conxt/window-glue/issues).
+If you have questions about this privacy policy, please open an issue on our [GitHub repository](https://github.com/Conxt/WindowGlue/issues).
 
 ## Changes to This Policy
 

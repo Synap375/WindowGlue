@@ -9,23 +9,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 - Initial release of Window Glue
-- Intuitive window snapping with drag gestures
+- Window snapping with drag gestures
 - Visual glow indicators for snap positions
 - Shake gesture to unglue all windows
 - Customizable keyboard shortcuts (defaut to F9, Shift+F9)
 - Menu bar integration with toggle controls
 - Settings window with preferences
 - Launch at startup option
-- Onboarding flow for new users
-- Support for multiple window arrangements
 - Configurable snap tolerance
-- Smart window positioning (attach vs split modes)
-- Window cleanup on app termination
-- Focus management for glued windows
-- Minimize/hide synchronization
-- Multi-resolution menu bar icons
+- Middle border behaves like a split view
 
-## [1.0.0] - 2025-01-XX
+## [1.0.0] - 2025-07-07
 
 ### Added
 - Initial public release

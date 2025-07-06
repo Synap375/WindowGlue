@@ -49,17 +49,38 @@ jobs:
         </plist>
         EOF
     
-    - name: Zip App
+    - name: Create DMG
       if: startsWith(github.ref, 'refs/tags/')
       run: |
-        cd export
-        zip -r "Window Glue.zip" "Window Glue.app"
+        # Create a temporary directory for DMG contents
+        mkdir -p dmg_temp
+        cp -R "export/Window Glue.app" dmg_temp/
+        
+        # Create Applications symlink for easy installation
+        ln -s /Applications dmg_temp/Applications
+        
+        # Create the DMG
+        hdiutil create -volname "Window Glue" \
+                       -srcfolder dmg_temp \
+                       -ov \
+                       -format UDZO \
+                       -fs HFS+ \
+                       "Window Glue.dmg"
+        
+        # Sign the DMG (optional - only if you have signing certificate)
+        # codesign --sign "Developer ID Application: Your Name" "Window Glue.dmg"
+        
+        # Notarize the DMG (optional - only if you have notarization set up)
+        # xcrun notarytool submit "Window Glue.dmg" --keychain-profile "notarytool-profile" --wait
+        
+        # Clean up
+        rm -rf dmg_temp
     
     - name: Create Release
       if: startsWith(github.ref, 'refs/tags/')
       uses: softprops/action-gh-release@v1
       with:
-        files: export/Window Glue.zip
+        files: Window Glue.dmg
         draft: false
         prerelease: false
         generate_release_notes: true

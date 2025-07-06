@@ -12,7 +12,6 @@ import KeyboardShortcuts
 class Settings: ObservableObject {
     @AppStorage("tolerance") var tolerance: Int = 24
     @AppStorage("shakeToUnglueEnabled") var shakeToUnglueEnabled: Bool = true
-    @AppStorage("hasCompletedOnboarding") var hasCompletedOnboarding: Bool = false
 }
 
 var settings = Settings()
@@ -27,30 +26,37 @@ struct SettingsWindow: View {
         VStack(alignment: .leading) {
             Form {
                 Section() {
-                    Toggle("Launch at startup", isOn: $launchAtStartup)
+                    Toggle("Launch at startup:", isOn: $launchAtStartup)
+                        .toggleStyle(.switch)
                         .onChange(of: launchAtStartup) { newValue in
                             setLaunchAtStartup(enabled: newValue)
                         }
-                    Toggle("Shake to unglue", isOn: $appSettings.shakeToUnglueEnabled)
+                    Toggle("Shake to unglue:", isOn: $appSettings.shakeToUnglueEnabled)
+                        .toggleStyle(.switch)
                     LabeledHStack("Snap tolerance:") {
                         HStack {
                             Slider(value: Binding(
                                 get: { Double(appSettings.tolerance) },
                                 set: { appSettings.tolerance = Int($0) }
-                            ), in: 4...50, step: 1)
+                            ), in: 4...50)
                             Text("\(appSettings.tolerance) px")
                                 .frame(width: 35, alignment: .trailing)
                                 .monospacedDigit()
                         }
                     }
                 } header: {
-                    Text("General").fontWeight(.semibold)
+                    Text("General")
+                        .fontWeight(.semibold)
+                        .foregroundStyle(.secondary)
                 }
                 Section() {
                     KeyboardShortcuts.Recorder("Add Glue:", name: .toggleGlue)
                     KeyboardShortcuts.Recorder("Unglue active window:", name: .unglue)
                 } header: {
-                    Text("Keyboard Shortcuts").fontWeight(.semibold)
+                    Text("Keyboard Shortcuts")
+                        .fontWeight(.semibold)
+                        .foregroundStyle(.secondary)
+                        .padding(.top, 8)
                 }
             }
             .frame(maxWidth: .infinity)
@@ -65,7 +71,7 @@ struct SettingsWindow: View {
                 .buttonStyle(.borderedProminent)
             }
         }
-        .frame(width: 350, height: 230)
+        .frame(width: 300, height: 240)
         .padding()
         .onAppear {
             launchAtStartup = isLaunchAtStartupEnabled()
@@ -91,7 +97,6 @@ func setLaunchAtStartup(enabled: Bool) {
         print("Failed to \(enabled ? "enable" : "disable") launch at startup: \(error)")
     }
 }
-
 
 struct LabeledHStack<Content: View>: View {
     var label: LocalizedStringKey
