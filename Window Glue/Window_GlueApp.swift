@@ -185,7 +185,7 @@ struct Window_GlueApp: App {
         }
         .windowStyle(.titleBar)
         .windowResizability(.contentSize)
-        .defaultSize(width: 300, height: 200)
+        .defaultSize(width: 350, height: 230)
         .windowToolbarStyle(.unifiedCompact)
         
         Window("Welcome to Window Glue", id: "onboarding") {

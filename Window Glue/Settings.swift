@@ -9,7 +9,7 @@ import SwiftUI
 import ServiceManagement
 import KeyboardShortcuts
 
-struct Settings {
+class Settings: ObservableObject {
     @AppStorage("tolerance") var tolerance: Int = 24
     @AppStorage("shakeToUnglueEnabled") var shakeToUnglueEnabled: Bool = true
     @AppStorage("hasCompletedOnboarding") var hasCompletedOnboarding: Bool = false
@@ -20,21 +20,38 @@ var glueActive: Bool = false
 
 struct SettingsWindow: View {
     @State private var launchAtStartup = false
-    @State private var localSettings = Settings()
+    @ObservedObject private var appSettings = settings
     @Environment(\.dismiss) private var dismiss
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 16) {
-            Text("General")
-                .font(.headline)
+        VStack(alignment: .leading) {
             Form {
-                Toggle("Launch at startup", isOn: $launchAtStartup)
-                    .onChange(of: launchAtStartup) { newValue in
-                        setLaunchAtStartup(enabled: newValue)
+                Section() {
+                    Toggle("Launch at startup", isOn: $launchAtStartup)
+                        .onChange(of: launchAtStartup) { newValue in
+                            setLaunchAtStartup(enabled: newValue)
+                        }
+                    Toggle("Shake to unglue", isOn: $appSettings.shakeToUnglueEnabled)
+                    LabeledHStack("Snap tolerance:") {
+                        HStack {
+                            Slider(value: Binding(
+                                get: { Double(appSettings.tolerance) },
+                                set: { appSettings.tolerance = Int($0) }
+                            ), in: 4...50, step: 1)
+                            Text("\(appSettings.tolerance) px")
+                                .frame(width: 35, alignment: .trailing)
+                                .monospacedDigit()
+                        }
                     }
-                KeyboardShortcuts.Recorder("Add Glue:", name: .toggleGlue)
-                KeyboardShortcuts.Recorder("Unglue active window:", name: .unglue)
-                Toggle("Shake to unglue", isOn: $localSettings.shakeToUnglueEnabled)
+                } header: {
+                    Text("General").fontWeight(.semibold)
+                }
+                Section() {
+                    KeyboardShortcuts.Recorder("Add Glue:", name: .toggleGlue)
+                    KeyboardShortcuts.Recorder("Unglue active window:", name: .unglue)
+                } header: {
+                    Text("Keyboard Shortcuts").fontWeight(.semibold)
+                }
             }
             .frame(maxWidth: .infinity)
             
@@ -48,7 +65,7 @@ struct SettingsWindow: View {
                 .buttonStyle(.borderedProminent)
             }
         }
-        .frame(width: 350, height: 200)
+        .frame(width: 350, height: 230)
         .padding()
         .onAppear {
             launchAtStartup = isLaunchAtStartupEnabled()
@@ -72,5 +89,56 @@ func setLaunchAtStartup(enabled: Bool) {
         }
     } catch {
         print("Failed to \(enabled ? "enable" : "disable") launch at startup: \(error)")
+    }
+}
+
+
+struct LabeledHStack<Content: View>: View {
+    var label: LocalizedStringKey
+    var content: () -> Content
+    @State var labelWidth: CGFloat = 0
+
+    init(_ label: LocalizedStringKey, @ViewBuilder content: @escaping () -> Content) {
+        self.label = label
+        self.content = content
+    }
+
+    var body: some View {
+        HStack(alignment: .top) {
+            Text(label)
+                .multilineTextAlignment(.trailing)
+                .lineLimit(nil)
+                .fixedSize(horizontal: false, vertical: true)
+                .offset(x: 8.5)
+                .readWidth { self.labelWidth = $0 }
+            content()
+                .padding([.leading], 1)
+        }
+        .alignmentGuide(.leading) { _ in labelWidth + 8 } // see note
+    }
+}
+
+
+struct WidthPreferenceKey: PreferenceKey {
+    static var defaultValue: CGFloat = 0
+    static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) {
+        value = max(value, nextValue())
+    }
+}
+
+
+fileprivate extension View {
+    func readWidth(onChange: @escaping (CGFloat) -> Void) -> some View {
+        background(
+            GeometryReader { geometryProxy in
+                Color.clear
+                    .preference(key: WidthPreferenceKey.self, value: ceil(geometryProxy.size.width))
+            }
+        )
+        .onPreferenceChange(WidthPreferenceKey.self) { k in
+            DispatchQueue.main.async {
+                onChange(k)
+            }
+        }
     }
 }
