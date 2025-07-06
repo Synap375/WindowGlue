@@ -40,6 +40,7 @@ Shortcuts can be customized in Settings.
 1. Download the latest release from [Releases](https://github.com/Conxt/WindowGlue/releases)
 2. Mount the DMG and drag Window Glue.app to your Applications folder
 3. Launch and grant Accessibility permissions when prompted
+4. Quit and re-launch Window Glue
 
 ### Build from Source
 1. Clone this repository
