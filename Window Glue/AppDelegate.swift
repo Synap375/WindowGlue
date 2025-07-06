@@ -92,6 +92,54 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                     }
                 }
             }
+            
+            state.on { (event: WindowDestroyedEvent) in
+                windowGlues.removeAll(where: { $0.0 == event.window || $0.2 == event.window })
+                MenuBarIconManager.shared.updateCanUnglue()
+            }
+            
+            state.on { (event: ApplicationTerminatedEvent) in
+                windowGlues.removeAll(where: { $0.0.application == event.application || $0.2.application == event.application })
+                MenuBarIconManager.shared.updateCanUnglue()
+            }
+            
+            state.on { (event: FrontmostApplicationChangedEvent) in
+                guard event.external == true else { return }
+                for pair in windowGlues.filter({ $0.2 == event.newValue?.mainWindow.value }) {
+                    if pair.0.application == pair.2.application { continue }
+                    _ = swindlerState?.frontmostApplication.set(pair.0.application).done { _ in
+                        _ = pair.0.application.mainWindow.set(pair.0).done { _ in
+                            _ = swindlerState?.frontmostApplication.set(event.newValue!)
+                        }
+                    }
+                }
+            }
+            
+            state.on { (event: WindowMinimizedChangedEvent) in
+                guard event.external == true else { return }
+                for pair in windowGlues.filter({ $0.2 == event.window }) {
+                    _ = pair.0.isMinimized.set(event.newValue)
+                }
+            }
+            
+            state.on { (event: ApplicationIsHiddenChangedEvent) in
+                guard event.newValue == false else { return }
+                for pair in windowGlues.filter({ $0.2 == event.application.mainWindow.value }) {
+                    _ = pair.0.application.mainWindow.set(pair.0)
+                }
+            }
+            
+            state.on { (event: ApplicationMainWindowChangedEvent) in
+                guard event.external == true else { return }
+                for pair in windowGlues.filter({ $0.2 == event.application.mainWindow.value }) {
+                    if pair.0.application == pair.2.application { continue }
+                    _ = swindlerState?.frontmostApplication.set(pair.0.application).done { _ in
+                        _ = pair.0.application.mainWindow.set(pair.0).done { _ in
+                            _ = swindlerState?.frontmostApplication.set(event.application)
+                        }
+                    }
+                }
+            }
         }.catch { e in
             print(e)
         }

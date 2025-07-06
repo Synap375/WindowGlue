@@ -113,24 +113,22 @@ struct MenuBarContentView: View {
             Button("Settings...") {
                 iconManager.showSettings()
             }
-            
-            Menu("More") {
-                Button("About Window Glue") {
-                    // About window
-                }
-                Button("My Other Apps") {
-                    // TBD
-                }
-                
-                #if DEBUG
-                Divider()
-                Button("Reset Onboarding & Quit") {
-                    settings.hasCompletedOnboarding = false
-                    NSApplication.shared.terminate(nil)
-                }
-                #endif
+            Button("About Window Glue") {
+                // About window
             }
             
+            Menu("My Other Apps") {
+                Button("Folders File Manager") {
+                    NSWorkspace.shared.open(URL(string: "https://foldersapp.dev")!)
+                }
+            }
+#if DEBUG
+            Divider()
+            Button("Reset Onboarding & Quit") {
+                settings.hasCompletedOnboarding = false
+                NSApplication.shared.terminate(nil)
+            }
+#endif
             Divider()
             
             Button("Quit Window Glue") {

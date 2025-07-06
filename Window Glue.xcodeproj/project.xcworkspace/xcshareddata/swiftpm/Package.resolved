@@ -1,5 +1,5 @@
 {
-  "originHash" : "02206383082b5e4af259397054b7d9ee9e417d80699a1f4c19d70efd646a770d",
+  "originHash" : "9c57f8474acf628e57e6ececa878bb50dbe453cad5a6e365c138830e990cbb65",
   "pins" : [
     {
       "identity" : "axswift",
@@ -51,8 +51,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/tmandry/Swindler.git",
       "state" : {
-        "branch" : "main",
-        "revision" : "bf2c42f1db8bb1aa6c0b634d9fca3ab4bd37931d"
+        "branch" : "rogue",
+        "revision" : "ddcc65818aa37b5a98d278533826c256a5473fea"
       }
     }
   ],

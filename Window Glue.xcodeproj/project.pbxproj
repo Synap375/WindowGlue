@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4D0C0DF12E16836B0090F5AE /* Swindler in Frameworks */ = {isa = PBXBuildFile; productRef = 4D0C0DF02E16836B0090F5AE /* Swindler */; };
 		4D479E2B2E180B6500BE9B73 /* KeyboardShortcuts in Frameworks */ = {isa = PBXBuildFile; productRef = 4D479E2A2E180B6500BE9B73 /* KeyboardShortcuts */; };
+		4D479E332E19959900BE9B73 /* Swindler in Frameworks */ = {isa = PBXBuildFile; productRef = 4D479E322E19959900BE9B73 /* Swindler */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,7 +28,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4D0C0DF12E16836B0090F5AE /* Swindler in Frameworks */,
+				4D479E332E19959900BE9B73 /* Swindler in Frameworks */,
 				4D479E2B2E180B6500BE9B73 /* KeyboardShortcuts in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -72,8 +72,8 @@
 			);
 			name = "Window Glue";
 			packageProductDependencies = (
-				4D0C0DF02E16836B0090F5AE /* Swindler */,
 				4D479E2A2E180B6500BE9B73 /* KeyboardShortcuts */,
+				4D479E322E19959900BE9B73 /* Swindler */,
 			);
 			productName = "Window Glue";
 			productReference = 4D0C0DE02E16826F0090F5AE /* Window Glue.app */;
@@ -104,8 +104,8 @@
 			mainGroup = 4D0C0DD72E16826F0090F5AE;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				4D0C0DEF2E16836B0090F5AE /* XCRemoteSwiftPackageReference "Swindler" */,
 				4D479E292E180B6500BE9B73 /* XCRemoteSwiftPackageReference "KeyboardShortcuts" */,
+				4D479E312E19959900BE9B73 /* XCRemoteSwiftPackageReference "Swindler" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 4D0C0DE12E16826F0090F5AE /* Products */;
@@ -344,14 +344,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		4D0C0DEF2E16836B0090F5AE /* XCRemoteSwiftPackageReference "Swindler" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/tmandry/Swindler.git";
-			requirement = {
-				branch = main;
-				kind = branch;
-			};
-		};
 		4D479E292E180B6500BE9B73 /* XCRemoteSwiftPackageReference "KeyboardShortcuts" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/sindresorhus/KeyboardShortcuts.git";
@@ -360,18 +352,26 @@
 				minimumVersion = 2.3.0;
 			};
 		};
+		4D479E312E19959900BE9B73 /* XCRemoteSwiftPackageReference "Swindler" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/tmandry/Swindler.git";
+			requirement = {
+				branch = rogue;
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		4D0C0DF02E16836B0090F5AE /* Swindler */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 4D0C0DEF2E16836B0090F5AE /* XCRemoteSwiftPackageReference "Swindler" */;
-			productName = Swindler;
-		};
 		4D479E2A2E180B6500BE9B73 /* KeyboardShortcuts */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 4D479E292E180B6500BE9B73 /* XCRemoteSwiftPackageReference "KeyboardShortcuts" */;
 			productName = KeyboardShortcuts;
+		};
+		4D479E322E19959900BE9B73 /* Swindler */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4D479E312E19959900BE9B73 /* XCRemoteSwiftPackageReference "Swindler" */;
+			productName = Swindler;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
