@@ -2,7 +2,7 @@
 
 A simple macOS menu bar utility that lets you glue two windows together so that they behave (mostly) as one.
 
-<img style="display: block; margin: auto;" src="Assets/Icon-MacOS-256x256.png"/>
+<p align="center"><img src="Assets/Icon-MacOS-256x256.png"/></p>
 
 ### Currently Supported Languages
 - English (en)
