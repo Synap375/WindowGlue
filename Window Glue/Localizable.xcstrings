@@ -940,6 +940,83 @@
         }
       }
     },
+    "Quit and Relaunch" : {
+      "comment" : "Button in Accessibility permission request",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Beenden und Neustarten"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Salir y Reiniciar"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Quitter et Relancer"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Esci e Riavvia"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "終了して再起動"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Avslutt og Start på nytt"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Afsluiten en Herstarten"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zakończ i Uruchom ponownie"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sair e Reiniciar"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sair e Reiniciar"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Avsluta och Starta om"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Закрити та перезапустити"
+          }
+        }
+      }
+    },
     "Quit Window Glue" : {
       "comment" : "Quit menu item",
       "localizations" : {
@@ -1570,79 +1647,79 @@
     "Window Glue" : {
       "shouldTranslate" : false
     },
-    "Window Glue needs accessibility permissions to manage windows. Please enable it in System Settings > Privacy & Security > Accessibility." : {
+    "Window Glue needs accessibility permissions to manage windows. Please enable it in System Settings > Privacy & Security > Accessibility, then quit and relaunch Window Glue." : {
       "comment" : "Accessibility permission request text",
       "localizations" : {
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Window Glue benötigt Barrierefreiheitsberechtigungen zur Fensterverwaltung. Bitte aktivieren Sie dies in Systemeinstellungen > Datenschutz & Sicherheit > Barrierefreiheit."
+            "value" : "Window Glue benötigt Barrierefreiheitsberechtigungen zur Fensterverwaltung. Bitte aktivieren Sie dies in Systemeinstellungen > Datenschutz & Sicherheit > Barrierefreiheit und beenden und starten Sie dann Window Glue neu."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Window Glue necesita permisos de accesibilidad para gestionar ventanas. Por favor, actívalo en Configuración del Sistema > Privacidad y Seguridad > Accesibilidad."
+            "value" : "Window Glue necesita permisos de accesibilidad para gestionar ventanas. Por favor, actívalo en Configuración del Sistema > Privacidad y Seguridad > Accesibilidad, luego sal y reinicia Window Glue."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Window Glue a besoin d'autorisations d'accessibilité pour gérer les fenêtres. Veuillez l'activer dans Réglages Système > Confidentialité et Sécurité > Accessibilité."
+            "value" : "Window Glue a besoin d'autorisations d'accessibilité pour gérer les fenêtres. Veuillez l'activer dans Réglages Système > Confidentialité et Sécurité > Accessibilité, puis quittez et relancez Window Glue."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Window Glue necessita delle autorizzazioni di accessibilità per gestire le finestre. Abilitalo in Impostazioni di Sistema > Privacy e Sicurezza > Accessibilità."
+            "value" : "Window Glue necessita delle autorizzazioni di accessibilità per gestire le finestre. Abilitalo in Impostazioni di Sistema > Privacy e Sicurezza > Accessibilità, poi esci e riavvia Window Glue."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Window Glueがウィンドウを管理するにはアクセシビリティ権限が必要です。システム設定 > プライバシーとセキュリティ > アクセシビリティで有効にしてください。"
+            "value" : "Window Glueがウィンドウを管理するにはアクセシビリティ権限が必要です。システム設定 > プライバシーとセキュリティ > アクセシビリティで有効にしてから、Window Glueを終了して再起動してください。"
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Window Glue trenger tilgjengelighetstillatelser for å administrere vinduer. Aktiver det i Systeminnstillinger > Personvern og sikkerhet > Tilgjengelighet."
+            "value" : "Window Glue trenger tilgjengelighetstillatelser for å administrere vinduer. Aktiver det i Systeminnstillinger > Personvern og sikkerhet > Tilgjengelighet, og avslutt og start deretter Window Glue på nytt."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Window Glue heeft toegankelijkheidsmachtigingen nodig om vensters te beheren. Schakel dit in via Systeeminstellingen > Privacy & Beveiliging > Toegankelijkheid."
+            "value" : "Window Glue heeft toegankelijkheidsmachtigingen nodig om vensters te beheren. Schakel dit in via Systeeminstellingen > Privacy & Beveiliging > Toegankelijkheid, en sluit en herstart daarna Window Glue."
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Window Glue wymaga uprawnień dostępności do zarządzania oknami. Włącz to w Ustawienia systemu > Prywatność i bezpieczeństwo > Dostępność."
+            "value" : "Window Glue wymaga uprawnień dostępności do zarządzania oknami. Włącz to w Ustawienia systemu > Prywatność i bezpieczeństwo > Dostępność, a następnie zakończ i uruchom ponownie Window Glue."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "O Window Glue precisa de permissões de acessibilidade para gerenciar janelas. Ative-o em Configurações do Sistema > Privacidade e Segurança > Acessibilidade."
+            "value" : "O Window Glue precisa de permissões de acessibilidade para gerenciar janelas. Ative-o em Configurações do Sistema > Privacidade e Segurança > Acessibilidade, depois saia e reinicie o Window Glue."
           }
         },
         "pt-PT" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "O Window Glue necessita de autorizações de acessibilidade para gerir janelas. Active-o em Definições do Sistema > Privacidade e Segurança > Acessibilidade."
+            "value" : "O Window Glue necessita de autorizações de acessibilidade para gerir janelas. Active-o em Definições do Sistema > Privacidade e Segurança > Acessibilidade, depois saia e reinicie o Window Glue."
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Window Glue behöver tillgänglighetsbehörigheter för att hantera fönster. Aktivera det i Systeminställningar > Integritet och säkerhet > Tillgänglighet."
+            "value" : "Window Glue behöver tillgänglighetsbehörigheter för att hantera fönster. Aktivera det i Systeminställningar > Integritet och säkerhet > Tillgänglighet, avsluta sedan och starta om Window Glue."
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Window Glue потребує дозволів доступності для управління вікнами. Будь ласка, увімкніть його в Налаштування системи > Конфіденційність і безпека > Доступність."
+            "value" : "Window Glue потребує дозволів доступності для управління вікнами. Будь ласка, увімкніть це в Налаштування системи > Конфіденційність і безпека > Доступність, а потім закрийте та перезапустіть Window Glue."
           }
         }
       }

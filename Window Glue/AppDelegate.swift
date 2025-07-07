@@ -23,7 +23,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     private var windowMovements: [Swindler.Window: [WindowMovement]] = [:]
     
     func applicationDidFinishLaunching(_ notification: Notification) {
-        guard AXSwift.checkIsProcessTrusted(prompt: true) else {
+        guard AXSwift.checkIsProcessTrusted(prompt: false) else {
             showAccessibilityAlert()
             return
         }
@@ -187,16 +187,46 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     private func showAccessibilityAlert() {
+        self.showAccessibilityAlertInternal(hasOpenedSettings: false)
+    }
+    
+    private func showAccessibilityAlertInternal(hasOpenedSettings: Bool) {
         let alert = NSAlert()
         alert.messageText = String(localized: "Accessibility Permission Required")
-        alert.informativeText = String(localized: "Window Glue needs accessibility permissions to manage windows. Please enable it in System Settings > Privacy & Security > Accessibility.")
+        alert.informativeText = String(localized: "Window Glue needs accessibility permissions to manage windows. Please enable it in System Settings > Privacy & Security > Accessibility, then quit and relaunch Window Glue.")
         alert.alertStyle = .warning
-        alert.addButton(withTitle: String(localized: "Open System Settings"))
-        alert.addButton(withTitle: String(localized: "Cancel"))
+        
+        if !hasOpenedSettings {
+            alert.addButton(withTitle: String(localized: "Open System Settings"))
+            alert.addButton(withTitle: String(localized: "Cancel"))
+            alert.addButton(withTitle: String(localized: "Quit and Relaunch"))
+        } else {
+            alert.addButton(withTitle: String(localized: "Cancel"))
+            alert.addButton(withTitle: String(localized: "Quit and Relaunch"))
+        }
         
         let response = alert.runModal()
-        if response == .alertFirstButtonReturn {
+        
+        if !hasOpenedSettings && response == .alertFirstButtonReturn {
+            // Open System Settings but don't close the dialog
             NSWorkspace.shared.open(URL(string: "x-apple.systempreferences:com.apple.preference.security?Privacy_Accessibility")!)
+            // Wait a moment to allow System Settings to come forward, then show dialog again
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                if !AXSwift.checkIsProcessTrusted(prompt: false) {
+                    self.showAccessibilityAlertInternal(hasOpenedSettings: true)
+                }
+            }
+        } else if (!hasOpenedSettings && response == .alertSecondButtonReturn) || (hasOpenedSettings && response == .alertFirstButtonReturn) {
+            // Cancel - continue without permissions
+            return
+        } else if (!hasOpenedSettings && response == .alertThirdButtonReturn) || (hasOpenedSettings && response == .alertSecondButtonReturn) {
+            // Quit and Relaunch
+            let appPath = Bundle.main.bundlePath
+            let task = Process()
+            task.launchPath = "/usr/bin/open"
+            task.arguments = [appPath]
+            task.launch()
+            NSApplication.shared.terminate(nil)
         }
     }
 }
