@@ -21,6 +21,8 @@ A simple macOS menu bar utility that lets you glue two windows together so that 
 
 ## Usage
 
+<p align="center"><img src="Assets/Screen.gif"/></p>
+
 1. Click the Window Glue icon in your menu bar
 2. Toggle "Add Glue" to enable window snapping mode
 3. Drag any window near another window
@@ -33,8 +35,6 @@ A simple macOS menu bar utility that lets you glue two windows together so that 
 - **Shift+F9**: Unglue active window
 
 Shortcuts can be customized in Settings.
-
-<p align="center"><img src="Assets/Screen.gif"/></p>
 
 ## Installation
 
