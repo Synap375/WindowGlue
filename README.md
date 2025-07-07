@@ -34,6 +34,8 @@ A simple macOS menu bar utility that lets you glue two windows together so that 
 
 Shortcuts can be customized in Settings.
 
+<p align="center"><img src="Assets/Screen.gif"/></p>
+
 ## Installation
 
 ### Download Release
