@@ -27,7 +27,7 @@ A simple macOS menu bar utility that lets you glue two windows together so that 
 2. Toggle "Add Glue" to enable window snapping mode
 3. Drag any window near another window
 4. Watch for the glow indicator showing snap positions
-5. The dragged window will snap to the terget window
+5. The dragged window will snap to the target window
 6. Shake a window quickly to unglue its connection
 
 ### Keyboard Shortcuts
