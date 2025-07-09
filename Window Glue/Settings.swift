@@ -71,7 +71,7 @@ struct SettingsWindow: View {
                 .buttonStyle(.borderedProminent)
             }
         }
-        .frame(width: 300, height: 240)
+        .frame(width: 350, height: 240)
         .padding()
         .onAppear {
             launchAtStartup = isLaunchAtStartupEnabled()

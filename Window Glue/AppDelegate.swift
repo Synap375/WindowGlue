@@ -119,10 +119,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             }
             
             state.on { (event: ApplicationIsHiddenChangedEvent) in
-                guard event.newValue == false else { return }
-                for pair in windowGlues.filter({ $0.2 == event.application.mainWindow.value }) {
-                    _ = pair.0.application.mainWindow.set(pair.0)
-                }
+                windowGlues.removeAll(where: { $0.0.application == event.application || $0.2.application == event.application })
             }
             
             state.on { (event: ApplicationMainWindowChangedEvent) in
